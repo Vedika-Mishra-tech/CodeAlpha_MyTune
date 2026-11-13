@@ -110,21 +110,29 @@
         <div class="hero__copy">
           <p class="eyebrow">Independent listening · Est. <span id="estYear"></span></p>
           <h1 class="hero__title">Sound, in your<br /><em>own key</em>.</h1>
-          <p class="hero__lead">A small, hand-built music room for every mood.</p>
           <div class="hero__actions">
             <button class="btn btn--solid" data-action="play-all">
               <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
               Play all songs
             </button>
-            <a class="btn btn--link" href="#songs">
+            <a class="btn btn--ghost hero__browse" href="#songs">
               Browse library
               <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
             </a>
           </div>
           <dl class="hero__stats">
-            <div><dt>Tracks</dt><dd id="statTracks"></dd></div>
-            <div><dt>Moods</dt><dd id="statMoods"></dd></div>
-            <div><dt>License</dt><dd id="statLicense"></dd></div>
+            <div class="hero__stat">
+              <dt>Tracks</dt>
+              <dd id="statTracks"></dd>
+            </div>
+            <div class="hero__stat">
+              <dt>Moods</dt>
+              <dd id="statMoods"></dd>
+            </div>
+            <div class="hero__stat">
+              <dt>License</dt>
+              <dd id="statLicense"></dd>
+            </div>
           </dl>
         </div>
 
