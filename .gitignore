@@ -1,0 +1,12 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+
+# Node (not needed for the site, kept in case you add tooling later)
+node_modules/
+npm-debug.log*

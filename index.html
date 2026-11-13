@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0E3B3E" />
+  <meta name="description" content="MyTune - an independently designed premium music player. Stream a curated library of public-domain tracks." />
+  <title>MyTune - Sound, in your own key</title>
+
+  <!-- Brand mark used as the browser tab icon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Expressive editorial typography: a display serif + a clean sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- ============================================================
+       ICON LIBRARY
+       All icons are drawn as SVG symbols once, then reused with
+       <use href="#icon-name">. This keeps the HTML tidy.
+       ============================================================ -->
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></symbol>
+    <symbol id="icon-prev" viewBox="0 0 24 24"><path d="M7 6h2v12H7zM18 6v12L9.5 12z"/></symbol>
+    <symbol id="icon-next" viewBox="0 0 24 24"><path d="M15 6h2v12h-2zM6 6l8.5 6L6 18z"/></symbol>
+    <symbol id="icon-shuffle" viewBox="0 0 24 24"><path d="M16 3h5v5h-2V6.4l-4.3 4.3-1.4-1.4L17.6 5H16V3zM3 5h4.2l3.1 3.1-1.4 1.4L6.2 7H3V5zm0 12h4.2l9.4-9.4 1.4 1.4L7.4 19H3v-2zm13 1v-2h1.6l-2.3-2.3 1.4-1.4L21 16.6V14h2v5h-5z"/></symbol>
+    <symbol id="icon-repeat" viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></symbol>
+    <symbol id="icon-repeat-one" viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4zM11 10h2v5h-1.6v-3.4l-1 .6-.6-1.1L11 10z"/></symbol>
+    <symbol id="icon-volume" viewBox="0 0 24 24"><path d="M4 9v6h3l5 4V5L7 9H4zm12.5 3a3.5 3.5 0 0 0-2-3.15v6.3A3.5 3.5 0 0 0 16.5 12zM14.5 4.2v2.1a5.5 5.5 0 0 1 0 11.4v2.1a7.6 7.6 0 0 0 0-15.6z"/></symbol>
+    <symbol id="icon-mute" viewBox="0 0 24 24"><path d="M4 9v6h3l5 4V5L7 9H4zm14.3.3-1.4-1.4L15 9.8l-1.9-1.9-1.4 1.4L13.6 11l-1.9 1.9 1.4 1.4L15 12.4l1.9 1.9 1.4-1.4L16.4 11z"/></symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.3-8.6C1 8.4 2.6 5 6 5c2 0 3.2 1.1 4 2.2C10.8 6.1 12 5 14 5c3.4 0 5 3.4 3.3 6.4C15 15.6 12 20 12 20z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-heart-filled" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.3-8.6C1 8.4 2.6 5 6 5c2 0 3.2 1.1 4 2.2C10.8 6.1 12 5 14 5c3.4 0 5 3.4 3.3 6.4C15 15.6 12 20 12 20z"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><path d="M10 4a6 6 0 1 0 3.7 10.7l4.8 4.8 1.4-1.4-4.8-4.8A6 6 0 0 0 10 4zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6z"/></symbol>
+    <symbol id="icon-queue" viewBox="0 0 24 24"><path d="M4 6h12v2H4zM4 11h12v2H4zM4 16h8v2H4zM17 15.5V9l5 3z"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16v2H4zM4 11h16v2H4zM4 15h16v2H4z"/></symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24"><path d="M7.4 8.6 12 13.2l4.6-4.6L18 10l-6 6-6-6z"/></symbol>
+    <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6-1.4-1.4L12.2 12 7.6 7.4z"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zM6 8h12l-1 12H7L6 8zm3 2v8h2v-8H9zm4 0v8h2v-8h-2z"/></symbol>
+    <symbol id="icon-expand" viewBox="0 0 24 24"><path d="M4 4h7v2H6v5H4V4zm9 0h7v7h-2V6h-5V4zM4 13h2v5h5v2H4v-7zm14 0h2v7h-7v-2h5v-5z"/></symbol>
+    <symbol id="icon-note" viewBox="0 0 24 24"><path d="M9 17a3 3 0 1 1-2-2.8V4l10-2v11.2A3 3 0 1 1 15 12.4V6.2L9 7.4V17z"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER / TOP NAVIGATION
+       ============================================================ -->
+  <header class="site-header" id="top">
+    <div class="shell nav-shell">
+      <a class="brand" href="#top" aria-label="MyTune home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="16" fill="var(--teal)"/>
+            <path d="M14 46 V22 L24 36 L32 22 L40 36 L50 22 V46" fill="none" stroke="var(--cream)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="50" cy="22" r="6" fill="var(--amber)"/>
+            <path d="M10 52 H54" stroke="var(--olive)" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand__word">My<span>Tune</span></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#discover">Discover</a>
+        <a href="#library">Library</a>
+        <a href="#playlists">Playlists</a>
+        <a href="#credits">Credits</a>
+      </nav>
+
+      <form class="search search--desktop" id="searchForm" role="search">
+        <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+        <input id="searchInput" type="search" placeholder="Search songs, artists, moods…" autocomplete="off" aria-label="Search songs" />
+        <button type="button" class="search__clear" data-action="clear-search" aria-label="Clear search" hidden>
+          <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+        </button>
+      </form>
+
+      <button class="btn btn--ghost nav-shuffle" data-action="shuffle-all">
+        <svg class="icon" aria-hidden="true"><use href="#icon-shuffle"></use></svg>
+        <span>Shuffle all</span>
+      </button>
+
+      <button class="menu-toggle" data-action="toggle-menu" aria-label="Open menu" aria-expanded="false">
+        <svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
+      </button>
+    </div>
+
+    <!-- Compact search for phones -->
+    <div class="mobile-search">
+      <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+      <input id="searchInputMobile" type="search" placeholder="Search MyTune…" autocomplete="off" aria-label="Search songs" />
+    </div>
+
+    <!-- Search results dropdown -->
+    <div class="search-results" id="searchResults" hidden>
+      <div class="search-results__head">
+        <span id="searchResultsTitle">Results</span>
+        <button class="btn btn--link" data-action="clear-search">Close</button>
+      </div>
+      <ul class="track-list" id="searchResultsList"></ul>
+      <p class="empty" id="searchEmpty" hidden>No songs matched that search.</p>
+    </div>
+  </header>
+
+  <!-- Slide-in menu for phones -->
+  <div class="nav-drawer" id="navDrawer" hidden>
+    <nav aria-label="Mobile">
+      <a href="#discover" data-action="close-menu">Discover</a>
+      <a href="#library" data-action="close-menu">Library</a>
+      <a href="#playlists" data-action="close-menu">Playlists</a>
+      <a href="#favourites" data-action="close-menu">Favourites</a>
+      <a href="#credits" data-action="close-menu">Credits</a>
+    </nav>
+    <button class="btn btn--solid" data-action="shuffle-all">Shuffle all songs</button>
+  </div>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <main id="main">
+    <!-- ============================================================
+         HERO - asymmetric editorial opener
+         ============================================================ -->
+    <section class="hero" id="discover">
+      <div class="shell hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">Independent listening · Est. 2026</p>
+          <h1 class="hero__title">Sound, in your <em>own&nbsp;key</em>.</h1>
+          <p class="hero__lead">
+            MyTune is a small, hand-built music room. Fifteen public-domain
+            recordings - from late-night ambient to warm folk - arranged like a
+            magazine you can play.
+          </p>
+          <div class="hero__actions">
+            <button class="btn btn--solid" data-action="play-featured">
+              <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+              Play the featured set
+            </button>
+            <a class="btn btn--link" href="#library">
+              Browse the library
+              <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+            </a>
+          </div>
+          <dl class="hero__stats">
+            <div><dt>Tracks</dt><dd>15</dd></div>
+            <div><dt>Moods</dt><dd>4</dd></div>
+            <div><dt>License</dt><dd>CC0</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero__art">
+          <div class="disc" id="heroDisc">
+            <img id="heroCover" src="assets/covers/west-in-africa.svg" alt="" />
+            <span class="disc__hole"></span>
+          </div>
+          <div class="hero__note">
+            <span class="hero__note-label">Now spinning</span>
+            <span class="hero__note-title" id="heroTitle">West in Africa</span>
+            <span class="hero__note-artist" id="heroArtist">John Bartmann</span>
+          </div>
+          <span class="hero__index" aria-hidden="true">01</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FEATURED - large artwork + details + tracklist
+         ============================================================ -->
+    <section class="section featured" id="featured">
+      <div class="shell">
+        <div class="section__head">
+          <p class="eyebrow">Featured</p>
+          <h2 class="section__title">The cover story</h2>
+        </div>
+        <div class="featured__grid">
+          <figure class="featured__art">
+            <img id="featuredCover" src="assets/covers/west-in-africa.svg" alt="Featured album artwork" />
+            <figcaption id="featuredCaption">MyTune · No. 01</figcaption>
+          </figure>
+          <div class="featured__body">
+            <span class="chip" id="featuredGenre">Afrobeat · Cinematic</span>
+            <h3 class="featured__title" id="featuredTitle">West in Africa</h3>
+            <p class="featured__artist" id="featuredArtist">John Bartmann</p>
+            <p class="featured__desc" id="featuredDesc">
+              A warm, rhythmic instrumental built for wide horizons.
+            </p>
+            <div class="featured__actions">
+              <button class="btn btn--solid" data-action="play-featured">
+                <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+                Play now
+              </button>
+              <button class="btn btn--ghost" data-action="fav-featured" id="featuredFav">
+                <svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg>
+                <span>Favourite</span>
+              </button>
+            </div>
+            <ul class="track-list track-list--compact" id="featuredTracklist"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RECENTLY PLAYED
+         ============================================================ -->
+    <section class="section" id="library">
+      <div class="shell">
+        <div class="section__head section__head--row">
+          <div>
+            <p class="eyebrow">Library</p>
+            <h2 class="section__title">Recently played</h2>
+          </div>
+          <button class="btn btn--ghost" data-action="shuffle-recent">
+            <svg class="icon" aria-hidden="true"><use href="#icon-shuffle"></use></svg>
+            <span>Shuffle recent</span>
+          </button>
+        </div>
+        <ul class="track-list track-list--recent" id="recentList"></ul>
+        <p class="empty" id="recentEmpty" hidden>
+          Nothing here yet - play a song and it will appear in this list.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         COLLECTIONS / MOODS
+         ============================================================ -->
+    <section class="section" id="collections">
+      <div class="shell">
+        <div class="section__head">
+          <p class="eyebrow">Curated</p>
+          <h2 class="section__title">Collections for the mood</h2>
+        </div>
+        <div class="collections" id="collectionsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PLAYLISTS
+         ============================================================ -->
+    <section class="section" id="playlists">
+      <div class="shell">
+        <div class="section__head section__head--row">
+          <div>
+            <p class="eyebrow">Your space</p>
+            <h2 class="section__title">Playlists</h2>
+          </div>
+          <form class="playlist-form" id="playlistForm">
+            <input type="text" id="playlistName" placeholder="Name a new playlist" maxlength="40" aria-label="New playlist name" />
+            <button class="btn btn--solid" type="submit">
+              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+              Create
+            </button>
+          </form>
+        </div>
+        <div class="playlists" id="playlistsGrid"></div>
+        <p class="empty" id="playlistsEmpty" hidden>
+          No playlists yet. Name one above to start collecting songs.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAVOURITES
+         ============================================================ -->
+    <section class="section" id="favourites">
+      <div class="shell">
+        <div class="section__head">
+          <p class="eyebrow">Saved</p>
+          <h2 class="section__title">Favourite songs</h2>
+        </div>
+        <ul class="track-list" id="favouritesList"></ul>
+        <p class="empty" id="favouritesEmpty" hidden>
+          Tap the heart on any song to keep it here.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CREDITS
+         ============================================================ -->
+    <section class="section credits" id="credits">
+      <div class="shell">
+        <div class="section__head">
+          <p class="eyebrow">Open source music</p>
+          <h2 class="section__title">Credits &amp; licenses</h2>
+        </div>
+        <p class="credits__intro">
+          Every track on MyTune is dedicated to the public domain under the
+          <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 1.0 Universal</a>
+          license and was sourced from the
+          <a href="https://freemusicarchive.org/" target="_blank" rel="noopener">Free Music Archive</a>.
+          CC0 means no attribution is required, but we credit the artists here with pleasure.
+        </p>
+        <ul class="credits__list" id="creditsList"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer__grid">
+      <div class="footer__brand">
+        <span class="brand__word brand__word--footer">My<span>Tune</span></span>
+        <p>An original music player concept. Built with plain HTML, CSS and JavaScript.</p>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#discover">Discover</a>
+        <a href="#library">Library</a>
+        <a href="#playlists">Playlists</a>
+        <a href="#credits">Credits</a>
+      </nav>
+      <p class="footer__note">Music licensed under CC0 · Artwork original to MyTune</p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       DESKTOP BOTTOM PLAYER
+       ============================================================ -->
+  <div class="player" id="player" hidden>
+    <div class="player__now">
+      <img class="player__cover" id="playerCover" src="assets/covers/west-in-africa.svg" alt="" />
+      <div class="player__meta">
+        <span class="player__title" id="playerTitle">Nothing playing</span>
+        <span class="player__artist" id="playerArtist">Pick a song to begin</span>
+      </div>
+      <button class="icon-btn" data-action="toggle-fav" id="playerFav" aria-label="Toggle favourite">
+        <svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg>
+      </button>
+    </div>
+
+    <div class="player__center">
+      <div class="player__controls">
+        <button class="icon-btn" data-action="shuffle" id="btnShuffle" aria-label="Shuffle">
+          <svg class="icon" aria-hidden="true"><use href="#icon-shuffle"></use></svg>
+        </button>
+        <button class="icon-btn" data-action="prev" aria-label="Previous song">
+          <svg class="icon" aria-hidden="true"><use href="#icon-prev"></use></svg>
+        </button>
+        <button class="play-btn" data-action="play-pause" id="btnPlay" aria-label="Play">
+          <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+        </button>
+        <button class="icon-btn" data-action="next" aria-label="Next song">
+          <svg class="icon" aria-hidden="true"><use href="#icon-next"></use></svg>
+        </button>
+        <button class="icon-btn" data-action="repeat" id="btnRepeat" aria-label="Repeat">
+          <svg class="icon" aria-hidden="true"><use href="#icon-repeat"></use></svg>
+        </button>
+      </div>
+      <div class="progress">
+        <span class="progress__time" id="timeCurrent">0:00</span>
+        <input class="range" type="range" data-range="seek" id="seekBar" min="0" max="100" value="0" step="0.1" aria-label="Seek" />
+        <span class="progress__time" id="timeTotal">0:00</span>
+      </div>
+    </div>
+
+    <div class="player__right">
+      <button class="icon-btn" data-action="toggle-mute" id="btnMute" aria-label="Mute">
+        <svg class="icon" aria-hidden="true"><use href="#icon-volume"></use></svg>
+      </button>
+      <input class="range range--volume" type="range" data-range="volume" id="volumeBar" min="0" max="1" value="0.8" step="0.01" aria-label="Volume" />
+      <button class="icon-btn" data-action="toggle-queue" aria-label="Queue">
+        <svg class="icon" aria-hidden="true"><use href="#icon-queue"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MOBILE MINI PLAYER
+       ============================================================ -->
+  <div class="miniplayer" id="miniplayer" hidden>
+    <div class="miniplayer__progress"><span id="miniProgress"></span></div>
+    <button class="miniplayer__info" data-action="open-nowplaying" aria-label="Open now playing">
+      <img class="miniplayer__cover" id="miniCover" src="assets/covers/west-in-africa.svg" alt="" />
+      <span class="miniplayer__meta">
+        <span class="miniplayer__title" id="miniTitle">Nothing playing</span>
+        <span class="miniplayer__artist" id="miniArtist">Pick a song</span>
+      </span>
+    </button>
+    <div class="miniplayer__controls">
+      <button class="icon-btn" data-action="prev" aria-label="Previous song">
+        <svg class="icon" aria-hidden="true"><use href="#icon-prev"></use></svg>
+      </button>
+      <button class="play-btn play-btn--mini" data-action="play-pause" id="miniPlay" aria-label="Play">
+        <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+      </button>
+      <button class="icon-btn" data-action="next" aria-label="Next song">
+        <svg class="icon" aria-hidden="true"><use href="#icon-next"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FULL-SCREEN NOW PLAYING (phones)
+       ============================================================ -->
+  <div class="nowplaying" id="nowplaying" hidden aria-label="Now playing">
+    <div class="nowplaying__top">
+      <button class="icon-btn" data-action="close-nowplaying" aria-label="Close now playing">
+        <svg class="icon" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+      </button>
+      <span class="nowplaying__eyebrow">Now playing</span>
+      <button class="icon-btn" data-action="toggle-queue" aria-label="Queue">
+        <svg class="icon" aria-hidden="true"><use href="#icon-queue"></use></svg>
+      </button>
+    </div>
+
+    <div class="nowplaying__art">
+      <img id="npCover" src="assets/covers/west-in-africa.svg" alt="" />
+    </div>
+
+    <div class="nowplaying__info">
+      <div>
+        <h2 id="npTitle">Nothing playing</h2>
+        <p id="npArtist">Pick a song to begin</p>
+      </div>
+      <button class="icon-btn" data-action="toggle-fav" id="npFav" aria-label="Toggle favourite">
+        <svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg>
+      </button>
+    </div>
+
+    <div class="progress">
+      <input class="range" type="range" data-range="seek" id="npSeek" min="0" max="100" value="0" step="0.1" aria-label="Seek" />
+      <div class="progress__labels">
+        <span id="npCurrent">0:00</span>
+        <span id="npTotal">0:00</span>
+      </div>
+    </div>
+
+    <div class="nowplaying__controls">
+      <button class="icon-btn" data-action="shuffle" id="npShuffle" aria-label="Shuffle">
+        <svg class="icon" aria-hidden="true"><use href="#icon-shuffle"></use></svg>
+      </button>
+      <button class="icon-btn" data-action="prev" aria-label="Previous song">
+        <svg class="icon" aria-hidden="true"><use href="#icon-prev"></use></svg>
+      </button>
+      <button class="play-btn play-btn--lg" data-action="play-pause" id="npPlay" aria-label="Play">
+        <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+      </button>
+      <button class="icon-btn" data-action="next" aria-label="Next song">
+        <svg class="icon" aria-hidden="true"><use href="#icon-next"></use></svg>
+      </button>
+      <button class="icon-btn" data-action="repeat" id="npRepeat" aria-label="Repeat">
+        <svg class="icon" aria-hidden="true"><use href="#icon-repeat"></use></svg>
+      </button>
+    </div>
+
+    <div class="nowplaying__extra">
+      <button class="icon-btn" data-action="toggle-mute" aria-label="Mute">
+        <svg class="icon" aria-hidden="true"><use href="#icon-volume"></use></svg>
+      </button>
+      <input class="range range--volume" type="range" data-range="volume" min="0" max="1" value="0.8" step="0.01" aria-label="Volume" />
+      <button class="icon-btn" data-action="toggle-queue" aria-label="Queue">
+        <svg class="icon" aria-hidden="true"><use href="#icon-queue"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       QUEUE PANEL (shared by desktop + mobile)
+       ============================================================ -->
+  <aside class="queue-panel" id="queuePanel" hidden aria-label="Play queue">
+    <header class="queue-panel__head">
+      <h2>Up next</h2>
+      <button class="icon-btn" data-action="toggle-queue" aria-label="Close queue">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+    </header>
+    <ol class="queue-panel__list" id="queueList"></ol>
+  </aside>
+
+  <!-- ============================================================
+       PLAYLIST DETAIL MODAL
+       ============================================================ -->
+  <div class="modal" id="playlistModal" hidden>
+    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="playlistModalTitle">
+      <header class="modal__head">
+        <h2 id="playlistModalTitle">Playlist</h2>
+        <button class="icon-btn" data-action="close-playlist" aria-label="Close playlist">
+          <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+        </button>
+      </header>
+      <div class="modal__actions">
+        <button class="btn btn--solid" data-action="play-playlist">
+          <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+          Play all
+        </button>
+        <button class="btn btn--ghost" data-action="delete-playlist">
+          <svg class="icon" aria-hidden="true"><use href="#icon-trash"></use></svg>
+          Delete playlist
+        </button>
+      </div>
+      <ul class="track-list" id="playlistModalList"></ul>
+      <p class="empty" id="playlistModalEmpty" hidden>This playlist is empty. Add songs with the + button.</p>
+    </div>
+  </div>
+
+  <!-- Small pop-up menu used to add a song to a playlist -->
+  <div class="popmenu" id="addToPlaylistMenu" hidden></div>
+
+  <!-- Toast messages -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- Scripts are loaded at the end so the HTML above exists first. -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
